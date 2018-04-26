@@ -8,6 +8,7 @@ public class IamCommand implements Command {
 
 	@Override
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
+		//TODO Roles stuff
 		
 	}
 
