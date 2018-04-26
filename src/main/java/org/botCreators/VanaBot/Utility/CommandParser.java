@@ -1,5 +1,6 @@
 package org.botCreators.VanaBot.Utility;
 
+import org.botCreators.VanaBot.Commands.BGCommand;
 import org.botCreators.VanaBot.Commands.ClockCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
 import org.botCreators.VanaBot.Commands.IamCommand;
@@ -14,21 +15,25 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class CommandParser {
 	
+	private Helper helper;
 	private IamCommand iam;
 	private ClockCommand clock;
 	private RandomCommand ran;
 	private HelpCommand help;
 	private IamnotCommand iamnot;
 	private RolesCommand roles;
+	private BGCommand bg;
 	
 	private String[] parsed;
 	public CommandParser() {
+		helper = new Helper();
 		iam = new IamCommand();
 		clock = new ClockCommand();
 		ran = new RandomCommand();
 		help = new HelpCommand();
 		iamnot = new IamnotCommand();
 		roles = new RolesCommand();
+		bg = new BGCommand();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -68,6 +73,10 @@ public class CommandParser {
 			
 			if(command.equals("roles")){
 				roles.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("bg")){
+				bg.onCommand(event, parsed, command, waiter);
 			}
 		}
 		

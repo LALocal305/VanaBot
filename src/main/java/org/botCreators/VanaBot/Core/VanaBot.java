@@ -29,7 +29,7 @@ public class VanaBot {
 			e1.printStackTrace();
 		}
     	
-    	String token = log.getProperty("testToken");
+    	String token = log.getProperty("token");
     	
     	
     	EventWaiter waiter = new EventWaiter();
