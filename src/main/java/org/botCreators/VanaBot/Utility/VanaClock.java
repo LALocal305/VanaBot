@@ -55,8 +55,8 @@ public class VanaClock {
         double second = Math.floor(time) % 60;
         DecimalFormat df = new DecimalFormat("00");
         
-        String returned = "Current Vana'Diel time is: \n**" + elemental_days[eleDay] + "** " + (int)year + "-" + (int)month + "-" + (int)dayOfMonth + " " 
-        					+ df.format(hour) + ":" + df.format(minute) + ":" + df.format(second);
+        String returned = ":calendar_spiral: **" + elemental_days[eleDay] + "** " + (int)year + "-" + (int)month + "-" + (int)dayOfMonth + 
+        					"\n:clock12: " + df.format(hour) + ":" + df.format(minute) + ":" + df.format(second);
         
         return returned;
 	}
