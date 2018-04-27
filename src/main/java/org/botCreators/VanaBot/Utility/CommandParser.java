@@ -5,6 +5,7 @@ import org.botCreators.VanaBot.Commands.ClockCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
 import org.botCreators.VanaBot.Commands.IamCommand;
 import org.botCreators.VanaBot.Commands.IamnotCommand;
+import org.botCreators.VanaBot.Commands.PresenceCommand;
 import org.botCreators.VanaBot.Commands.RandomCommand;
 import org.botCreators.VanaBot.Commands.RolesCommand;
 
@@ -14,7 +15,7 @@ import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class CommandParser {
-	
+
 	private Helper helper;
 	private IamCommand iam;
 	private ClockCommand clock;
@@ -23,6 +24,7 @@ public class CommandParser {
 	private IamnotCommand iamnot;
 	private RolesCommand roles;
 	private BGCommand bg;
+	private PresenceCommand presence;
 	
 	private String[] parsed;
 	public CommandParser() {
@@ -34,6 +36,7 @@ public class CommandParser {
 		iamnot = new IamnotCommand();
 		roles = new RolesCommand();
 		bg = new BGCommand();
+		presence = new PresenceCommand();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -49,7 +52,8 @@ public class CommandParser {
 		}
 		
 		
-		if(event.isFromType(ChannelType.TEXT)){ //TODO Limit to bot-spam channel
+		if(event.isFromType(ChannelType.TEXT) && 
+				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){ //TODO Limit to bot-spam channel
 			
 			if(command.equals("iam")){
 				iam.onCommand(event, parsed, command, waiter);
@@ -78,19 +82,23 @@ public class CommandParser {
 			if(command.equals("bg")){
 				bg.onCommand(event, parsed, command, waiter);
 			}
+			System.out.println();
+			if(command.equals("presence") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+				presence.onCommand(event, parsed, command, waiter);
+			}
 		}
 		
 	}
 	
 	private String[] parseCommand(String args){
-		/*if(args.contains("-n ") || args.contains("-q ") || args.contains("-s") || args.contains("-c") || args.contains("-d ")
+		if(args.contains("-n ")/* || args.contains("-q ") || args.contains("-s") || args.contains("-c") || args.contains("-d ")
 				 || args.contains("-tag ") || args.contains("-w ") || args.contains("-rar ") || args.contains("-v ") || args.contains("-d1 ")
 				 || args.contains("-d2 ") || args.contains("-dt ") || args.contains("-r ") || args.contains("-p ") || args.contains("-ac ")
-				 || args.contains("-nn ")){
-			return parsed = args.split("(?=-n )|(?=-t )|(?=-d )|(?=-q )|(?=-w )|(?=-tag )|(?=-c)|(?=-v )|(?=-rar )|(?=-d1 )"
-					+ "|(?=-d2 )|(?=-dt )|(?=-r )|(?=-p )|(?=-ac )|(?=-nn )|(?=-s)");
-		} else {*/
+				 || args.contains("-nn ")*/){
+			return parsed = args.split("(?=-n )"/*|(?=-t )|(?=-d )|(?=-q )|(?=-w )|(?=-tag )|(?=-c)|(?=-v )|(?=-rar )|(?=-d1 )"
+					+ "|(?=-d2 )|(?=-dt )|(?=-r )|(?=-p )|(?=-ac )|(?=-nn )|(?=-s)"*/);
+		} else {
 			return parsed = new String[] {args.trim()};
-		//}
+		}
 	}
 }

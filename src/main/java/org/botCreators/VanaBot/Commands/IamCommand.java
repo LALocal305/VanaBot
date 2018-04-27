@@ -63,7 +63,7 @@ public class IamCommand implements Command {
 					}
 					
 					if(assignableRolesNames.containsKey(role) && (!hasRole || uRoles.size() == 0)){
-						Role r = event.getJDA().getRolesByName(assignableRolesNames.get(role), true).get(0);
+						Role r = event.getGuild().getRolesByName(assignableRolesNames.get(role), true).get(0);
 						event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
 						
 						String emote = "<:" + role + ":" + event.getGuild().getEmotesByName(role, true).get(0).getId() + ">";

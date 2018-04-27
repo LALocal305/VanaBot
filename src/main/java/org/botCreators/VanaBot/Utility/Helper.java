@@ -1,6 +1,11 @@
 package org.botCreators.VanaBot.Utility;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Role;
 
 public class Helper {
 	
@@ -33,6 +38,16 @@ public class Helper {
 		}
 		
 		return tempMap;
+	}
+	
+	public boolean hasRole(Member member, String roleName, List<Role> roles){
+		ArrayList<String> roleNames = new ArrayList<>();
+		
+		for(int i = 0; i < roles.size(); i++){
+			roleNames.add(roles.get(i).getName().toLowerCase());
+		}
+		
+		return roleNames.contains(roleName);
 	}
 	
 	public static String getProperNationName(String shortHand){

@@ -33,7 +33,7 @@ public class IamnotCommand implements Command {
 							String strippedUserRole = uRoles.get(j).getName().replace(" ", "").replaceAll("'", "").toLowerCase();
 							
 							if (strippedUserRole.equals(role)){
-								Role r = event.getJDA().getRolesByName(roles.get(role), true).get(0);
+								Role r = event.getGuild().getRolesByName(roles.get(role), true).get(0);
 								event.getGuild().getController().removeRolesFromMember(event.getMember(), r).queue();
 								event.getChannel().sendMessage("You are no longer a member of " + r.getName() + ".").queue();
 								hasRole = true;

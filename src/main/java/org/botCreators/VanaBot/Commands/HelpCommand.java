@@ -24,7 +24,8 @@ public class HelpCommand implements Command {
 			.append("roles - Shows assignable roles.\n")
 			.append("random - Rolls a 1000-sided die!\n")
 			.append("help - Shows this message.\n")
-			.append("clock - Shows current Vana'diel time.\n");
+			.append("clock - Shows current Vana'diel time.\n")
+			.append("bg - Will link to a bg search page.\n");
 						
 		event.getChannel().sendMessage(em.BuildSimpleEmbed(event, "Help", help.toString(), Color.CYAN)).queue();
 
