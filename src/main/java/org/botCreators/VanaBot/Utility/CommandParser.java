@@ -39,6 +39,8 @@ public class CommandParser {
 		presence = new PresenceCommand();
 	}
 
+	//TODO maybe add a ping command. add stats command to show server stats i.e roles total.
+	//add a me command to show user statistics i.e. roles, join date
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
 		
 		parseCommand(args);
@@ -53,7 +55,7 @@ public class CommandParser {
 		
 		
 		if(event.isFromType(ChannelType.TEXT) && 
-				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){ //TODO Limit to bot-spam channel
+				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){
 			
 			if(command.equals("iam")){
 				iam.onCommand(event, parsed, command, waiter);
@@ -82,7 +84,7 @@ public class CommandParser {
 			if(command.equals("bg")){
 				bg.onCommand(event, parsed, command, waiter);
 			}
-			System.out.println();
+			
 			if(command.equals("presence") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
 				presence.onCommand(event, parsed, command, waiter);
 			}

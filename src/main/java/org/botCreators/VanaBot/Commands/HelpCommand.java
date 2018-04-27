@@ -20,31 +20,15 @@ public class HelpCommand implements Command {
 		help.append("Helper Bot for /r/FFXI Discord server!\n")
 			.append("Bot is only available in the #bot-spam channel.\n\n")
 			.append("iam - Assigns the desired nation as a role.\n")
-			.append("iamnot - Unassigns the desired nation as a role. For San d'Oria use 'sandoria'.\n")
+			.append("iamnot - Unassigns the desired nation as a role.\n")
 			.append("roles - Shows assignable roles.\n")
 			.append("random - Rolls a 1000-sided die!\n")
 			.append("help - Shows this message.\n")
 			.append("clock - Shows current Vana'diel time.\n")
-			.append("bg - Will link to a bg search page.\n");
+			.append("bg - Will link to a BG-Wiki search page.\n");
 						
 		event.getChannel().sendMessage(em.BuildSimpleEmbed(event, "Help", help.toString(), Color.CYAN)).queue();
 
 	}
 
 }
-/* Current Help
-Helper bot for /r/FFXI Discord server!
-Bot is only available in the bot-spam channel.
-
-​No Category:
-  iamnot Unassigns the desired nation as a role. For San d'Oria use 'sandoria'.
-  iam    Assigns the desired nation as a role.
-  roles  Shows assignable roles.
-  random Rolls a 1000-sided die!
-  help   Shows this message.
-  greet  Make me say hello!
-  clock  Shows current Vana'diel time
-
-Type !help command for more info on a command.
-You can also type !help category for more info on a category.
-*/
