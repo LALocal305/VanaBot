@@ -114,7 +114,6 @@ public class RssReader {
 	         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");//Thu, 26 Apr 2018 00:00:00 GMT+09:00
 	         if (null != datesFromRss && datesFromRss.size() > 0){
 	        	 fromFileDate = formatter.parse(datesFromRss.get(0));
-	        	 System.out.println("file date " + fromFileDate);
 	         }
 	         
 	         for(int i=0; i<entries.size();i++){
@@ -122,7 +121,6 @@ public class RssReader {
 	        			 entries.get(i).getDescription().getValue(), entries.get(i).getTitle(),
 	        			 entries.get(i).getPublishedDate());
 	        	 t.replaceHTMLTags();
-	        	 System.out.println("tpubdate " + t.getPubDate());
 	        	 
 	        	 if ( null != fromFileDate && t.getPubDate().after(fromFileDate)){
 	        		 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
@@ -145,6 +143,5 @@ public class RssReader {
 	 
 	public static void setRssChannel(MessageChannel channel) {
 		rssChannel = channel;
-		System.out.println(channel.getName());
 	}
 }
