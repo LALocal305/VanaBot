@@ -16,7 +16,7 @@ public class StatsCommand implements Command {
 	@Override
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
 		em = new EmbedHelper();
-		OffsetDateTime os = event.getMember().getJoinDate();
+		OffsetDateTime os = event.getGuild().getCreationTime();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSZ");
 
 		event.getChannel().sendMessage(em.BuildStatsEmbed(event, formatter.format(os))).queue();

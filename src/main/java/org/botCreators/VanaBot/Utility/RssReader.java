@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,7 @@ public class RssReader {
 		    	printNews();
 		    	printTopics();
 		    }
-		}, 0, 6, TimeUnit.HOURS);
+		}, 1, 4, TimeUnit.HOURS);
 	}
 	
 	private void printNews(){
@@ -62,7 +63,6 @@ public class RssReader {
 	         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");//Fri Apr 27 10:44:56 PDT 2018
 	         if (null != datesFromRss && datesFromRss.size() > 0){
 	        	 fromFileDate = formatter.parse(datesFromRss.get(0));
-	        	 System.out.println("file date " + fromFileDate);
 	         }
 	         
 	         for(int i=0; i<entries.size();i++){
@@ -70,10 +70,14 @@ public class RssReader {
 	        			 entries.get(i).getDescription().getValue(), entries.get(i).getTitle(),
 	        			 entries.get(i).getPublishedDate());
 	        	 t.replaceHTMLTags();
-	        	 System.out.println("tpubdate " + t.getPubDate());
 	        	 
 	        	 if ( null != fromFileDate && t.getPubDate().after(fromFileDate)){
-	        		 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+	        		 if (i == 0) {
+	        			 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+	        			 System.out.println("N: now " + LocalDateTime.now());
+	    	        	 System.out.println("N: file date " + fromFileDate);
+	        			 System.out.println("N: tpubdate " + t.getPubDate());
+	        		 }
 	        		 rss_entries.add(t);
 	        	 } 
 	         }
@@ -123,7 +127,12 @@ public class RssReader {
 	        	 t.replaceHTMLTags();
 	        	 
 	        	 if ( null != fromFileDate && t.getPubDate().after(fromFileDate)){
-	        		 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+	        		 if(i == 0) {
+	        			 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
+	        			 System.out.println("T: now " + LocalDateTime.now());
+	    	        	 System.out.println("T: file date " + fromFileDate);
+	        			 System.out.println("T: tpubdate " + t.getPubDate());
+	        		 }
 	        		 rss_entries.add(t);
 	        	 } 
 	         }
