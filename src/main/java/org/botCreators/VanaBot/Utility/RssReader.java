@@ -36,7 +36,7 @@ public class RssReader {
 		    	printNews();
 		    	printTopics();
 		    }
-		}, 10, 10, TimeUnit.SECONDS);
+		}, 0, 6, TimeUnit.HOURS);
 	}
 	
 	private void printNews(){
