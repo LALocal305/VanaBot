@@ -49,8 +49,6 @@ public class CommandParser {
 		stats = new StatsCommand();
 	}
 
-	//TODO maybe add a ping command. add stats command to show server stats i.e roles total.
-	//add a me command to show user statistics i.e. roles, join date
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
 		
 		parseCommand(args);
