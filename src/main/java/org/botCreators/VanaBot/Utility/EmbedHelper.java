@@ -21,7 +21,7 @@ public class EmbedHelper {
     	return embed.build();
     }
     
-    public MessageEmbed BuildStatsEmbed(MessageReceivedEvent event){
+    public MessageEmbed BuildStatsEmbed(MessageReceivedEvent event, String creationDate){
     	EmbedBuilder embed = new EmbedBuilder();
     	
     	embed.setAuthor(event.getJDA().getSelfUser().getName(), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
@@ -56,6 +56,12 @@ public class EmbedHelper {
     	
     	embed.addField("Server Stats", sb.toString(), false);
     	embed.setColor(Color.WHITE);
+    	embed.setThumbnail("https://i.imgur.com/idl3ogB.jpg");   	
+    	
+    	if (null != creationDate) {
+    		creationDate = creationDate.substring(0, creationDate.indexOf("."));
+        	embed.setFooter("Server creation date: " + creationDate, null);
+    	}
     	
     	return embed.build();
     }

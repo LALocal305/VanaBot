@@ -22,8 +22,6 @@ public class MeCommand implements Command{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSZ");
 		List<Role> roles = event.getMember().getRoles();
 		
-		event.getChannel().sendMessage(os.toString()).queue();
-		
 		event.getChannel().sendMessage(em.BuildMeEmbed(event, roles, formatter.format(os))).queue();
 		
 	}
