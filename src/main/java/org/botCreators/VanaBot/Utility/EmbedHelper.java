@@ -1,6 +1,7 @@
 package org.botCreators.VanaBot.Utility;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -16,6 +17,71 @@ public class EmbedHelper {
     	embed.setColor(color);
     	embed.setTitle(title);
     	embed.setDescription(desc);
+    	
+    	return embed.build();
+    }
+    
+    public MessageEmbed BuildStatsEmbed(MessageReceivedEvent event){
+    	EmbedBuilder embed = new EmbedBuilder();
+    	
+    	embed.setAuthor(event.getJDA().getSelfUser().getName(), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+    	StringBuilder sb = new StringBuilder();
+    	
+    	int members = event.getGuild().getMembers().size();
+    	sb.append("Total Members: **").append(members).append("**\n");
+    	
+    	int sMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("San d'Oria", true)).size();
+    	sb.append("San d'Oria citizens: **").append(sMembers).append("**\n");
+    	
+    	int wMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Windurst", true)).size();
+    	sb.append("Windurst citizens: **").append(wMembers).append("**\n");
+    	
+    	int bMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Bastok", true)).size();
+    	sb.append("Bastok citizens: **").append(bMembers).append("**\n");
+    	
+    	int jMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Jeuno", true)).size();
+    	sb.append("Jeuno citizens: **").append(jMembers).append("**\n");
+    	
+    	int beMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Beastmen", true)).size();
+    	sb.append("Beastmen: **").append(beMembers).append("**\n");
+    	
+    	int ahMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Aht Urhgan", true)).size();
+    	sb.append("Aht Urhgan citizens: **").append(ahMembers).append("**\n");
+    	
+    	int aMembers = event.getGuild().getMembersWithRoles(event.getGuild().getRolesByName("Adoulin", true)).size();
+    	sb.append("Adoulin citizens: **").append(aMembers).append("**\n");
+    	
+    	
+    	
+    	
+    	embed.addField("Server Stats", sb.toString(), false);
+    	embed.setColor(Color.WHITE);
+    	
+    	return embed.build();
+    }
+    
+    public MessageEmbed BuildMeEmbed(MessageReceivedEvent event, List<Role> roles, String date){
+    	EmbedBuilder embed = new EmbedBuilder();
+    	
+    	embed.setAuthor(event.getMember().getEffectiveName(), null, event.getAuthor().getEffectiveAvatarUrl());
+    	
+    	if (null != roles && roles.size() >0) {
+	    	StringBuilder rs = new StringBuilder();
+	    	
+    		for(int i = 0; i < roles.size(); i++){
+    			rs.append(roles.get(i).getName()).append("\n");
+	    	}
+    		
+    		embed.addField("Roles", rs.toString(), true);
+    	}
+    	
+    	embed.setColor(Color.WHITE);
+    	
+    	if (null != date) {
+    		date = date.substring(0, date.indexOf("."));
+    		embed.addField("Join Date", date, true);
+    	}
+    	
     	
     	return embed.build();
     }

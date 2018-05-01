@@ -5,10 +5,12 @@ import org.botCreators.VanaBot.Commands.ClockCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
 import org.botCreators.VanaBot.Commands.IamCommand;
 import org.botCreators.VanaBot.Commands.IamnotCommand;
+import org.botCreators.VanaBot.Commands.MeCommand;
 import org.botCreators.VanaBot.Commands.PresenceCommand;
 import org.botCreators.VanaBot.Commands.RandomCommand;
 import org.botCreators.VanaBot.Commands.RolesCommand;
 import org.botCreators.VanaBot.Commands.RssSettingsCommand;
+import org.botCreators.VanaBot.Commands.StatsCommand;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -27,6 +29,9 @@ public class CommandParser {
 	private BGCommand bg;
 	private PresenceCommand presence;
 	private RssSettingsCommand rss;
+	private MeCommand me;
+	private StatsCommand stats;
+	
 	
 	private String[] parsed;
 	public CommandParser() {
@@ -40,6 +45,8 @@ public class CommandParser {
 		bg = new BGCommand();
 		presence = new PresenceCommand();
 		rss = new RssSettingsCommand();
+		me = new MeCommand();
+		stats = new StatsCommand();
 	}
 
 	//TODO maybe add a ping command. add stats command to show server stats i.e roles total.
@@ -86,6 +93,14 @@ public class CommandParser {
 			
 			if(command.equals("bg")){
 				bg.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("me")){
+				me.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("stats")){
+				stats.onCommand(event, parsed, command, waiter);
 			}
 			
 			if(command.equals("presence") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
