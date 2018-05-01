@@ -8,6 +8,7 @@ import org.botCreators.VanaBot.Commands.IamnotCommand;
 import org.botCreators.VanaBot.Commands.PresenceCommand;
 import org.botCreators.VanaBot.Commands.RandomCommand;
 import org.botCreators.VanaBot.Commands.RolesCommand;
+import org.botCreators.VanaBot.Commands.RssSettingsCommand;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -25,6 +26,7 @@ public class CommandParser {
 	private RolesCommand roles;
 	private BGCommand bg;
 	private PresenceCommand presence;
+	private RssSettingsCommand rss;
 	
 	private String[] parsed;
 	public CommandParser() {
@@ -37,6 +39,7 @@ public class CommandParser {
 		roles = new RolesCommand();
 		bg = new BGCommand();
 		presence = new PresenceCommand();
+		rss = new RssSettingsCommand();
 	}
 
 	//TODO maybe add a ping command. add stats command to show server stats i.e roles total.
@@ -56,7 +59,7 @@ public class CommandParser {
 		
 		if(event.isFromType(ChannelType.TEXT) && 
 				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){
-			
+
 			if(command.equals("iam")){
 				iam.onCommand(event, parsed, command, waiter);
 			}
@@ -87,6 +90,10 @@ public class CommandParser {
 			
 			if(command.equals("presence") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
 				presence.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("rss") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+				rss.onCommand(event, parsed, command, waiter);
 			}
 		}
 		

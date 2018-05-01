@@ -20,6 +20,18 @@ public class EmbedHelper {
     	return embed.build();
     }
     
+    public MessageEmbed BuildRssEmbed(RssEntry entry){
+    	EmbedBuilder embed = new EmbedBuilder();
+    	
+    	embed.setColor(Color.WHITE);
+    	embed.setThumbnail("https://i.imgur.com/idl3ogB.jpg");
+    	embed.setTitle(entry.getTitle(), entry.getLink());
+    	embed.setDescription(entry.getDescription());
+    	embed.setFooter(entry.getPubDate().toString(), null);
+    	
+    	return embed.build();
+    }
+    
     public MessageEmbed BuildNationEmbed(MessageReceivedEvent event, String desc, Role role){
     	EmbedBuilder embed = new EmbedBuilder();
     	

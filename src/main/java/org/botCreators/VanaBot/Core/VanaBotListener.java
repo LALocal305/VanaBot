@@ -1,6 +1,7 @@
 package org.botCreators.VanaBot.Core;
 
 import org.botCreators.VanaBot.Utility.CommandParser;
+import org.botCreators.VanaBot.Utility.RssReader;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -11,9 +12,12 @@ public class VanaBotListener extends ListenerAdapter {
 
 	CommandParser parser = new CommandParser();
 	private EventWaiter waiter;
+	RssReader rss = new RssReader();
+	
 	
 	public VanaBotListener(EventWaiter waiter){
 		this.waiter = waiter;
+		rss.readAndPrintRss();
 	}
 	
     @Override

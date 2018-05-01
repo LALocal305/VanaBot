@@ -1,4 +1,5 @@
 *.propConfs
+*.rss
 *.class
 *.log
 *.jar
