@@ -1,5 +1,7 @@
 package org.botCreators.VanaBot.Utility;
 
+import java.util.function.Consumer;
+
 import org.botCreators.VanaBot.Commands.BGCommand;
 import org.botCreators.VanaBot.Commands.ClockCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
@@ -15,7 +17,10 @@ import org.botCreators.VanaBot.Commands.StatsCommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
 import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.requests.RestAction;
 
 public class CommandParser {
 
@@ -107,6 +112,19 @@ public class CommandParser {
 			
 			if(command.equals("rss") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
 				rss.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("ping")) {
+
+			     MessageChannel channel = event.getChannel();
+			     final long time = System.currentTimeMillis();
+			     RestAction<Message> action = channel.sendMessage("Ping...");
+			     Consumer<Message> callback = (message) ->  {
+			        Message m = message; 
+			        m.editMessage("Ping: " + (System.currentTimeMillis() - time) + "ms").queue();
+			     };
+			     action.queue(callback);
+				
 			}
 		}
 		
