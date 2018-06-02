@@ -20,7 +20,6 @@ public class PresenceCommand implements Command {
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
 		
 		argMap = new HashMap<>(Helper.parseArgs(args));
-		System.out.println(argMap.toString());
 		
 		if(argMap.containsKey(command) && !argMap.get(command).isEmpty()){
 	        Presence presence = event.getJDA().getPresence();
