@@ -7,6 +7,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.user.GenericUserPresenceEvent;
 
 public class EmbedHelper {
 	
@@ -129,6 +130,20 @@ public class EmbedHelper {
     	embed.setAuthor(event.getMember().getEffectiveName(), null, event.getAuthor().getEffectiveAvatarUrl());
     	embed.setTitle("Current Vana'Diel Time");
     	embed.setDescription(time);
+    	
+    	return embed.build();
+    }
+    
+    public MessageEmbed BuildStreamingEmbed(GenericUserPresenceEvent event, 
+    		String appName, String details, String url, String image) {
+    	EmbedBuilder embed = new EmbedBuilder();
+    	
+    	embed.setAuthor(event.getJDA().getSelfUser().getName(), null, 
+    			event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+    	embed.setTitle(event.getMember().getEffectiveName() + " is now streaming!");
+    	embed.setDescription("Come watch them play **" + details + "**!\n"+url);
+    	embed.setColor(Color.decode("#DC27FF"));
+    	embed.setThumbnail(image);
     	
     	return embed.build();
     }

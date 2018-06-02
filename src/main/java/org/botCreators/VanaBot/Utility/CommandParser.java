@@ -13,6 +13,7 @@ import org.botCreators.VanaBot.Commands.RandomCommand;
 import org.botCreators.VanaBot.Commands.RolesCommand;
 import org.botCreators.VanaBot.Commands.RssSettingsCommand;
 import org.botCreators.VanaBot.Commands.StatsCommand;
+import org.botCreators.VanaBot.Commands.StreamCommand;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -36,6 +37,7 @@ public class CommandParser {
 	private RssSettingsCommand rss;
 	private MeCommand me;
 	private StatsCommand stats;
+	private StreamCommand stream;
 	
 	
 	private String[] parsed;
@@ -52,6 +54,7 @@ public class CommandParser {
 		rss = new RssSettingsCommand();
 		me = new MeCommand();
 		stats = new StatsCommand();
+		stream = new StreamCommand();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -112,6 +115,10 @@ public class CommandParser {
 			
 			if(command.equals("rss") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
 				rss.onCommand(event, parsed, command, waiter);
+			}
+			
+			if(command.equals("stream") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+				stream.onCommand(event, parsed, command, waiter);
 			}
 			
 			if(command.equals("ping")) {
