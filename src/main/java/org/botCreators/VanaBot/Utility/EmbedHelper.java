@@ -135,7 +135,7 @@ public class EmbedHelper {
     }
     
     public MessageEmbed BuildStreamingEmbed(GenericUserPresenceEvent event, 
-    		String appName, String details, String url, String image) {
+    		String appName, String details, String url) {
     	EmbedBuilder embed = new EmbedBuilder();
     	
     	embed.setAuthor(event.getJDA().getSelfUser().getName(), null, 
@@ -143,7 +143,7 @@ public class EmbedHelper {
     	embed.setTitle(event.getMember().getEffectiveName() + " is now streaming!");
     	embed.setDescription("Come watch them play **" + details + "**!\n"+url);
     	embed.setColor(Color.decode("#DC27FF"));
-    	embed.setThumbnail(image);
+    	embed.setThumbnail("https://i.imgur.com/OKo3YWu.png");//https://i.imgur.com/OKo3YWu.png (Twitch Logo)
     	
     	return embed.build();
     }

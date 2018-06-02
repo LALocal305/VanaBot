@@ -15,13 +15,12 @@ public class StreamingHelper {
 		String appName = event.getMember().getGame().asRichPresence().getName();
 		String appDetails = event.getMember().getGame().asRichPresence().getDetails();
 		String url = event.getMember().getGame().asRichPresence().getUrl();
-		String im = event.getMember().getGame().asRichPresence().getLargeImage().getUrl();
 		
 		if(appDetails.contains("Final Fantasy XI") && !appDetails.contains("XIV")){
 			EmbedHelper em = new EmbedHelper();
 			
 			if (null != streamChannel){
-				streamChannel.sendMessage(em.BuildStreamingEmbed(event, appName, appDetails, url, im)).queue();
+				streamChannel.sendMessage(em.BuildStreamingEmbed(event, appName, appDetails, url)).queue();
 				Role r = event.getGuild().getRolesByName("now streaming", true).get(0);
 				event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
 			}
