@@ -22,7 +22,9 @@ public class StreamingHelper {
 			if (null != streamChannel){
 				streamChannel.sendMessage(em.BuildStreamingEmbed(event, appName, appDetails, url)).queue();
 				Role r = event.getGuild().getRolesByName("now streaming", true).get(0);
-				event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
+				if (!event.getMember().getRoles().contains(r)){
+					event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
+				}
 			}
 		}
 	
