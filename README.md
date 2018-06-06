@@ -4,26 +4,28 @@ A helper bot for the /r/FFXI Discord Server. Questions/comments/feature requests
 
 ## Commands
 
-To use a command prefix any of the below with a `!`.
+To use a command prefix any of the below with a **!**
 
-iam - Assigns the desired nation as a role.
 
-iamnot - Unassigns the desired nation as a role.
+**iam** - Assigns the desired nation as a role.
 
-roles - Shows assignable roles.
+**iamnot** - Unassigns the desired nation as a role.
 
-random - Rolls a 1000-sided die!
+**roles** - Shows assignable roles.
 
-help - Shows this message.
+**random** - Rolls a 1000-sided die!
 
-clock - Shows current Vana'diel time.
+**help** - Shows this message.
 
-bg - Will link to a BG-Wiki search page.
+**clock** - Shows current Vana'diel time.
 
-stats - Shows Discord server population and role breakdown.
+**bg** - Will link to a BG-Wiki search page.
 
-me - Shows your roles and join date.
+**stats** - Shows Discord server population and role breakdown.
 
-ping - Shows the ping time between the bot and Discord
+**me** - Shows your roles and join date.
+
+**ping** - Shows the ping time between the bot and Discord
+
 
 
