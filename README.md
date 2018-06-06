@@ -1,6 +1,6 @@
 # VanaBot
 
-A helper bot for the /r/FFXI Discord Server. Questions/comments/feature requests? Message @LALocal305#5709 on Discord.
+A helper bot for the /r/FFXI Discord Server. Questions/comments/feature requests? Send us a message on the /r/FFXI Discord Server: https://discord.gg/p8MYERz.
 
 ## Commands
 
