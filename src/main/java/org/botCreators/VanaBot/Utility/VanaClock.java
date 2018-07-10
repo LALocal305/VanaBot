@@ -38,7 +38,7 @@ public class VanaClock {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 		
 		cal.setTime(today);
-		//cal.add(Calendar.HOUR, 8);
+		cal.add(Calendar.HOUR, 1);
 		double ts = cal.getTimeInMillis() / 1000L;
 		cal.setTime(epoch); 
 		double es = cal.getTimeInMillis() / 1000L;
