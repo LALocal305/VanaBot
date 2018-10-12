@@ -14,6 +14,7 @@ import org.botCreators.VanaBot.Commands.RolesCommand;
 import org.botCreators.VanaBot.Commands.RssSettingsCommand;
 import org.botCreators.VanaBot.Commands.StatsCommand;
 import org.botCreators.VanaBot.Commands.StreamCommand;
+import org.botCreators.VanaBot.Commands._119Command;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -38,6 +39,7 @@ public class CommandParser {
 	private MeCommand me;
 	private StatsCommand stats;
 	private StreamCommand stream;
+	private _119Command _119;
 	
 	
 	private String[] parsed;
@@ -55,6 +57,7 @@ public class CommandParser {
 		me = new MeCommand();
 		stats = new StatsCommand();
 		stream = new StreamCommand();
+		_119 = new _119Command();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -69,6 +72,13 @@ public class CommandParser {
 			command = parsed[0];
 		}
 		
+		if(event.isFromType(ChannelType.TEXT) && 
+				(event.getChannel().getName().equals("general-ffxi-discussion") || event.getChannel().getName().equals("newbies")
+						|| event.getChannel().getName().equals("testing"))){
+			if(command.equals("119")){
+				_119.onCommand(event, parsed, command, waiter);
+			}
+		}
 		
 		if(event.isFromType(ChannelType.TEXT) && 
 				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){
