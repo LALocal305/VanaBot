@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import org.botCreators.VanaBot.Commands.BGCommand;
 import org.botCreators.VanaBot.Commands.ClockCommand;
+import org.botCreators.VanaBot.Commands.GuidesCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
 import org.botCreators.VanaBot.Commands.IamCommand;
 import org.botCreators.VanaBot.Commands.IamnotCommand;
@@ -40,7 +41,7 @@ public class CommandParser {
 	private StatsCommand stats;
 	private StreamCommand stream;
 	private _119Command _119;
-	
+	private GuidesCommand guides;
 	
 	private String[] parsed;
 	public CommandParser() {
@@ -58,6 +59,7 @@ public class CommandParser {
 		stats = new StatsCommand();
 		stream = new StreamCommand();
 		_119 = new _119Command();
+		guides = new GuidesCommand();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -77,6 +79,9 @@ public class CommandParser {
 						|| event.getChannel().getName().equals("testing"))){
 			if(command.equals("119")){
 				_119.onCommand(event, parsed, command, waiter);
+			}
+			if(command.equals("guides")){
+				guides.onCommand(event, parsed, command, waiter);
 			}
 		}
 		
