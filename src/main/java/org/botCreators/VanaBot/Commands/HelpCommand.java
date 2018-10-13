@@ -28,7 +28,9 @@ public class HelpCommand implements Command {
 			.append("clock - Shows current Vana'diel time.\n")
 			.append("bg - Will link to a BG-Wiki search page.\n")
 			.append("stats - Shows server population and role breakdown.\n")
-			.append("me - Shows your roles and join date.\n");
+			.append("me - Shows your roles and join date.\n")
+			.append("119 - prints a link to Quickstart Guide 1-119")
+			.append("guides - prints a link to helpful guides on BG Wiki");
 						
 		event.getChannel().sendMessage(em.BuildSimpleEmbed(event, "Help", help.toString(), Color.CYAN)).queue();
 
