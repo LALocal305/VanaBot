@@ -22,12 +22,10 @@ public class RssSettingsCommand implements Command{
 		
 		if(!argMap.get(command).isEmpty()) {
 			List<TextChannel> channels = event.getGuild().getTextChannels(); 
-			System.out.println(argMap.get(command));
-			System.out.println(channels);
+
 			boolean found = false;
 			for(int i = 0; i < channels.size(); i++){
-				System.out.println(channels.get(i).getName());
-				System.out.println(channels.get(i).getId());
+
 				if (channels.get(i).getName().toLowerCase().equals(argMap.get(command))){						
 					RssReader.setRssChannel(channels.get(i));
 					event.getChannel().sendMessage("RSS channel set to " + channels.get(i).getAsMention()).queue();
