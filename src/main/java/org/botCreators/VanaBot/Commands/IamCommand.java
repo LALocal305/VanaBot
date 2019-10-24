@@ -9,8 +9,8 @@ import org.botCreators.VanaBot.Utility.Helper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class IamCommand implements Command {
 
@@ -64,7 +64,7 @@ public class IamCommand implements Command {
 					
 					if(assignableRolesNames.containsKey(role) && (!hasRole || uRoles.size() == 0)){
 						Role r = event.getGuild().getRolesByName(assignableRolesNames.get(role), true).get(0);
-						event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
+						event.getGuild().addRoleToMember(event.getMember(), r).queue();
 						
 						String emote = "<:" + role + ":" + event.getGuild().getEmotesByName(role, true).get(0).getId() + ">";
 						

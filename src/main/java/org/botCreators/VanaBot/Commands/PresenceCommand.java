@@ -6,11 +6,10 @@ import org.botCreators.VanaBot.Utility.Helper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Game.GameType;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.managers.Presence;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.managers.Presence;
 
 public class PresenceCommand implements Command {
 
@@ -23,7 +22,7 @@ public class PresenceCommand implements Command {
 		
 		if(argMap.containsKey(command) && !argMap.get(command).isEmpty()){
 	        Presence presence = event.getJDA().getPresence();
-	        presence.setGame(Game.of(GameType.DEFAULT,argMap.get(command)));
+	        presence.setActivity(Activity.of(Activity.ActivityType.DEFAULT,argMap.get(command)));
 	        
 	        if(argMap.containsKey("-n") && !argMap.get("-n").isEmpty()){
 	        	String status = argMap.get("-n");

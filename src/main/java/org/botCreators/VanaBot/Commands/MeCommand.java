@@ -8,8 +8,8 @@ import org.botCreators.VanaBot.Utility.EmbedHelper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MeCommand implements Command{
 
@@ -18,7 +18,7 @@ public class MeCommand implements Command{
 	@Override
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
 		em = new EmbedHelper();
-		OffsetDateTime os = event.getMember().getJoinDate();
+		OffsetDateTime os = event.getMember().getTimeJoined();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSZ");
 		List<Role> roles = event.getMember().getRoles();
 		

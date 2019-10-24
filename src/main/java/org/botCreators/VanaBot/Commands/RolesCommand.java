@@ -11,8 +11,8 @@ import org.botCreators.VanaBot.Utility.EmbedHelper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class RolesCommand implements Command {
 

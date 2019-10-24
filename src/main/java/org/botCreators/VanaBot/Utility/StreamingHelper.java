@@ -1,8 +1,11 @@
 package org.botCreators.VanaBot.Utility;
 
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.user.GenericUserPresenceEvent;
+import java.util.List;
+
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.user.update.GenericUserPresenceEvent;
 
 public class StreamingHelper {
 	private static MessageChannel streamChannel; 
@@ -12,9 +15,10 @@ public class StreamingHelper {
 	}
 	
 	public void GetAndPrintStreamInfo(GenericUserPresenceEvent event){
-		String appName = event.getMember().getGame().asRichPresence().getName();
-		String appDetails = event.getMember().getGame().asRichPresence().getDetails();
-		String url = event.getMember().getGame().asRichPresence().getUrl();
+		List<Activity> act = event.getMember().getActivities();
+		String appName = act.get(0).asRichPresence().getName();// event.getMember().getActivities().asRichPresence().getName();
+		String appDetails = act.get(0).asRichPresence().getDetails(); //event.getMember().getGame().asRichPresence().getDetails();
+		String url = act.get(0).asRichPresence().getUrl();// event.getMember().getGame().asRichPresence().getUrl();
 		
 		if(appDetails.contains("Final Fantasy XI") && !appDetails.contains("XIV") && !appDetails.contains("XII")){
 			EmbedHelper em = new EmbedHelper();
@@ -23,8 +27,8 @@ public class StreamingHelper {
 				streamChannel.sendMessage(em.BuildStreamingEmbed(event, appName, appDetails, url)).queue();
 				Role r = event.getGuild().getRolesByName("now streaming", true).get(0);
 				if (!event.getMember().getRoles().contains(r)){
-					event.getGuild().getController().addRolesToMember(event.getMember(), r).queue();
-				}
+					event.getGuild().addRoleToMember(event.getMember(), r).queue();
+				} 
 			}
 		}
 	

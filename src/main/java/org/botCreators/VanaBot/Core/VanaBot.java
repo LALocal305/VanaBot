@@ -9,12 +9,11 @@ import javax.security.auth.login.LoginException;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Game.GameType;
-import net.dv8tion.jda.core.managers.Presence;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.managers.Presence;
 
 public class VanaBot {
 
@@ -37,12 +36,12 @@ public class VanaBot {
         {
             JDA jda = new JDABuilder(AccountType.BOT)
                     .setToken(token) 
-                    .addEventListener(waiter)
-                    .addEventListener(new VanaBotListener(waiter))
-                    .buildBlocking();  
+                    .addEventListeners(waiter)
+                    .addEventListeners(new VanaBotListener(waiter))
+                    .build().awaitReady();  
             
-            Presence presence = jda.getPresence();
-            presence.setGame(Game.of(GameType.DEFAULT, "Tetra Master | !help"));
+            Presence presence = jda.getPresence(); 
+            presence.setActivity(Activity.of(Activity.ActivityType.DEFAULT, "Tetra Master | !help"));
         }
         catch (LoginException e)
         {

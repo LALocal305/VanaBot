@@ -7,8 +7,8 @@ import org.botCreators.VanaBot.Utility.Helper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class IamnotCommand implements Command {
 
@@ -34,7 +34,7 @@ public class IamnotCommand implements Command {
 							
 							if (strippedUserRole.equals(role)){
 								Role r = event.getGuild().getRolesByName(roles.get(role), true).get(0);
-								event.getGuild().getController().removeRolesFromMember(event.getMember(), r).queue();
+								event.getGuild().removeRoleFromMember(event.getMember(), r).queue();
 								event.getChannel().sendMessage("You are no longer a member of " + r.getName() + ".").queue();
 								hasRole = true;
 								break;

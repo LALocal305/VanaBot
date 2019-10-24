@@ -4,7 +4,7 @@ import java.util.Random;
 
 import org.botCreators.VanaBot.Utility.EmbedHelper;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class RandomCommand implements Command {
 	

@@ -6,7 +6,7 @@ import org.botCreators.VanaBot.Utility.Helper;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class BGCommand implements Command {
 	//TODO look into getting the results - HttpUrlConnection etc
