@@ -153,4 +153,11 @@ public class RssReader {
 	public static void setRssChannel(MessageChannel channel) {
 		rssChannel = channel;
 	}
+	
+	public static String getRssChannel() {
+		if (null == rssChannel)
+			return "not set.";
+		else
+			return rssChannel.getName(); 
+	}
 }

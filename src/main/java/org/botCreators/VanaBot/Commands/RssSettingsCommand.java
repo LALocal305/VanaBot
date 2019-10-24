@@ -21,10 +21,22 @@ public class RssSettingsCommand implements Command{
 		argMap = new HashMap<>(Helper.parseArgs(args));
 		
 		if(!argMap.get(command).isEmpty()) {
-			List<TextChannel> channels = event.getGuild().getTextChannels();
+			List<TextChannel> channels = event.getGuild().getTextChannels(); 
+			System.out.println(argMap.get(command));
+			System.out.println(channels);
 			boolean found = false;
 			for(int i = 0; i < channels.size(); i++){
+				System.out.println(channels.get(i).getName());
+				System.out.println(channels.get(i).getId());
 				if (channels.get(i).getName().toLowerCase().equals(argMap.get(command))){						
+					RssReader.setRssChannel(channels.get(i));
+					event.getChannel().sendMessage("RSS channel set to " + channels.get(i).getAsMention()).queue();
+					found = true;
+					break;
+				}
+				else if (channels.get(i).getId()
+						.contains(
+								argMap.get(command).replace("<", "").replace("#", "").replace(">",""))) {
 					RssReader.setRssChannel(channels.get(i));
 					event.getChannel().sendMessage("RSS channel set to " + channels.get(i).getAsMention()).queue();
 					found = true;
@@ -39,7 +51,7 @@ public class RssSettingsCommand implements Command{
 				
 		
 		} else {
-			event.getChannel().sendMessage("You need to supply me with a valid channel name.").queue();
+			event.getChannel().sendMessage("Current RSS channel is " + RssReader.getRssChannel()).queue();
 		}
 		
 	}
