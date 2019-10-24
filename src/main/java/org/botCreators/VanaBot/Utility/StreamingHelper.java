@@ -16,7 +16,7 @@ public class StreamingHelper {
 		String appDetails = event.getMember().getGame().asRichPresence().getDetails();
 		String url = event.getMember().getGame().asRichPresence().getUrl();
 		
-		if(appDetails.contains("Final Fantasy XI") && !appDetails.contains("XIV")){
+		if(appDetails.contains("Final Fantasy XI") && !appDetails.contains("XIV") && !appDetails.contains("XII")){
 			EmbedHelper em = new EmbedHelper();
 			
 			if (null != streamChannel){

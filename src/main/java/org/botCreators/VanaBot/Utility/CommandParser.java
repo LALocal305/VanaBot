@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import org.botCreators.VanaBot.Commands.BGCommand;
 import org.botCreators.VanaBot.Commands.ClockCommand;
+import org.botCreators.VanaBot.Commands.GuidesCommand;
 import org.botCreators.VanaBot.Commands.HelpCommand;
 import org.botCreators.VanaBot.Commands.IamCommand;
 import org.botCreators.VanaBot.Commands.IamnotCommand;
@@ -14,6 +15,7 @@ import org.botCreators.VanaBot.Commands.RolesCommand;
 import org.botCreators.VanaBot.Commands.RssSettingsCommand;
 import org.botCreators.VanaBot.Commands.StatsCommand;
 import org.botCreators.VanaBot.Commands.StreamCommand;
+import org.botCreators.VanaBot.Commands._119Command;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -38,7 +40,8 @@ public class CommandParser {
 	private MeCommand me;
 	private StatsCommand stats;
 	private StreamCommand stream;
-	
+	private _119Command _119;
+	private GuidesCommand guides;
 	
 	private String[] parsed;
 	public CommandParser() {
@@ -55,6 +58,8 @@ public class CommandParser {
 		me = new MeCommand();
 		stats = new StatsCommand();
 		stream = new StreamCommand();
+		_119 = new _119Command();
+		guides = new GuidesCommand();
 	}
 
 	public void Forward(MessageReceivedEvent event, String args, EventWaiter waiter) {
@@ -69,6 +74,16 @@ public class CommandParser {
 			command = parsed[0];
 		}
 		
+		if(event.isFromType(ChannelType.TEXT) && 
+				(event.getChannel().getName().equals("general-ffxi-discussion") || event.getChannel().getName().equals("newbies")
+						|| event.getChannel().getName().equals("testing"))){
+			if(command.equals("119")){
+				_119.onCommand(event, parsed, command, waiter);
+			}
+			if(command.equals("guides")){
+				guides.onCommand(event, parsed, command, waiter);
+			}
+		}
 		
 		if(event.isFromType(ChannelType.TEXT) && 
 				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){
