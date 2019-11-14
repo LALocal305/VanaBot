@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class RssReader {
 
-	private EmbedHelper em = new EmbedHelper();
+	private static EmbedHelper em = new EmbedHelper();
 	private static MessageChannel rssChannel; 
 	
 	public RssReader(){
@@ -35,13 +35,14 @@ public class RssReader {
 		ses.scheduleAtFixedRate(new Runnable() {
 		    @Override
 		    public void run() {
+		    	System.out.println("Hourly run of News & Topics");
 		    	printNews();
 		    	printTopics();
 		    }
-		}, 1, 1, TimeUnit.HOURS);
+		}, 30, 3600, TimeUnit.SECONDS);
 	}
 	
-	private void printNews(){
+	private static void printNews(){
 	     try {
 	    	 String newsFile = "rss/pastNews.rss";
 	    	 List<String> datesFromRss = null;
@@ -57,7 +58,7 @@ public class RssReader {
 	         try {
 	        	 datesFromRss = Files.readAllLines(Paths.get(newsFile));
 	         } catch (Exception e){
-	        	 
+	        	 System.out.println("Unable to read News rss.");
 	         }
 	         
 	         Date fromFileDate = null;
@@ -88,7 +89,7 @@ public class RssReader {
 	        		 rssChannel.sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
 	        	 }
 	         }
-	         
+	         System.out.println("RSS News Entries printing: " + rss_entries.size());
 		 }
 	     catch (Exception ex) {
 	         ex.printStackTrace();
@@ -96,7 +97,7 @@ public class RssReader {
 	     }
 	}
 	
-	private void printTopics(){
+	private static void printTopics(){
 	     try {
 	    	 String newsFile = "rss/pastTopics.rss";
 	    	 List<String> datesFromRss = null;
@@ -112,7 +113,7 @@ public class RssReader {
 	         try {
 	        	 datesFromRss = Files.readAllLines(Paths.get(newsFile));
 	         } catch (Exception e){
-	        	 
+	        	 System.out.println("Unable to read Topics rss.");
 	         }
 	         
 	         Date fromFileDate = null;
@@ -132,7 +133,7 @@ public class RssReader {
 	        			 Files.write(Paths.get(newsFile), (t.getPubDate() + System.lineSeparator()).getBytes("UTF-8"),StandardOpenOption.CREATE,StandardOpenOption.WRITE);
 	        			 System.out.println("T: now " + LocalDateTime.now());
 	    	        	 System.out.println("T: file date " + fromFileDate);
-	        			 System.out.println("T: tpubdate " + t.getPubDate());
+	        			 System.out.println("T: tpub date " + t.getPubDate());
 	        		 }
 	        		 rss_entries.add(t);
 	        	 } 
@@ -143,7 +144,7 @@ public class RssReader {
 	        		 rssChannel.sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
 	        	 }
 	         }
-	         
+	         System.out.println("RSS Topics Entries printing: " + rss_entries.size());
 		 }
 	     catch (Exception ex) {
 	         ex.printStackTrace();
@@ -160,5 +161,11 @@ public class RssReader {
 			return "not set.";
 		else
 			return rssChannel.getName(); 
+	}
+	
+	public static void forceRunNewsAndTopics() {
+		System.out.println("Forcing update for RSS feed.");
+		printNews();
+		printTopics();
 	}
 }

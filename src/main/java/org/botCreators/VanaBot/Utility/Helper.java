@@ -40,14 +40,23 @@ public class Helper {
 		return tempMap;
 	}
 	
-	public boolean hasRole(Member member, String roleName, List<Role> roles){
-		ArrayList<String> roleNames = new ArrayList<>();
+	public static boolean hasRole(Member member, String roleNames, List<Role> serverRoles){
+		String[] necessaryRoles = roleNames.split(",");
+		ArrayList<String> memberRoleNames =  new ArrayList<String>();
 		
-		for(int i = 0; i < roles.size(); i++){
-			roleNames.add(roles.get(i).getName().toLowerCase());
+		
+		for(int j = 0; j < serverRoles.size(); j++) {
+			memberRoleNames.add(serverRoles.get(j).getName());
 		}
 		
-		return roleNames.contains(roleName);
+		for(int i = 0; i < necessaryRoles.length; i++)
+		{
+			if (memberRoleNames.contains(necessaryRoles[i]))
+				return true;
+		}
+
+		
+		return false;
 	}
 	
 	public static String getProperNationName(String shortHand){

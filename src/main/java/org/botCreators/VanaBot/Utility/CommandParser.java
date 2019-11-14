@@ -124,15 +124,15 @@ public class CommandParser {
 				stats.onCommand(event, parsed, command, waiter);
 			}
 			
-			if(command.equals("presence") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+			if(command.equals("presence") && Helper.hasRole(event.getMember(), "mods", event.getMember().getRoles())){
 				presence.onCommand(event, parsed, command, waiter);
 			}
 			
-			if(command.equals("rss") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+			if(command.equals("rss") && Helper.hasRole(event.getMember(), "mods", event.getMember().getRoles())){
 				rss.onCommand(event, parsed, command, waiter);
 			}
 			
-			if(command.equals("stream") && helper.hasRole(event.getMember(), "mods", event.getGuild().getRoles())){
+			if(command.equals("stream") && Helper.hasRole(event.getMember(), "mods", event.getMember().getRoles())){
 				stream.onCommand(event, parsed, command, waiter);
 			}
 			
