@@ -17,6 +17,7 @@ public class IamCommand implements Command {
 	private HashMap<String, String> argMap;
 	private ArrayList<String> unassignables = new ArrayList<>();
 	private HashMap<String, String> assignableRolesNames;
+	private ArrayList<String> worldRoleNames = new ArrayList<>();
 	private EmbedHelper em;
 	
 	public IamCommand(){
@@ -34,6 +35,15 @@ public class IamCommand implements Command {
 		assignableRolesNames.put("ahturhgan", "Aht Urhgan");
 		assignableRolesNames.put("tavnazia", "Tavnazia");
 		assignableRolesNames.put("adoulin", "Adoulin");
+		
+		worldRoleNames.add("Asura"); 		worldRoleNames.add("Bahamut");
+		worldRoleNames.add("Bismarck"); 	worldRoleNames.add("Carbuncle");
+		worldRoleNames.add("Cerberus"); 	worldRoleNames.add("Fenrir");
+		worldRoleNames.add("Lakshmi"); 		worldRoleNames.add("Leviathan");
+		worldRoleNames.add("Odin"); 		worldRoleNames.add("Phoenix");
+		worldRoleNames.add("Quetzalcoatl"); worldRoleNames.add("Ragnarok");
+		worldRoleNames.add("Shiva");		worldRoleNames.add("Siren");
+		worldRoleNames.add("Sylph"); 		worldRoleNames.add("Valefor");
 	}
 	
 	@Override
@@ -61,7 +71,9 @@ public class IamCommand implements Command {
 							
 						}
 					}
-					
+					if (doesUserHaveWorldRole(role)) { 
+						
+					} else
 					if(assignableRolesNames.containsKey(role) && (!hasRole || uRoles.size() == 0)){
 						Role r = event.getGuild().getRolesByName(assignableRolesNames.get(role), true).get(0);
 						event.getGuild().addRoleToMember(event.getMember(), r).queue();
@@ -83,7 +95,7 @@ public class IamCommand implements Command {
 					}
 					
 				} else {
-					event.getChannel().sendMessage("It's empty?").queue();
+					event.getChannel().sendMessage("You didn't supply a role.").queue();
 				}
 			} else {
 				event.getChannel().sendMessage("That's not an assignable role. Use `!roles` to see what is available.").queue();
@@ -91,6 +103,15 @@ public class IamCommand implements Command {
 		} else {
 			event.getChannel().sendMessage("You need to supply a nation name.").queue();
 		}
+	}
+	
+	private boolean doesUserHaveWorldRole(String roleName) {
+		for(int i = 0; i < worldRoleNames.size(); i++) {
+			if (worldRoleNames.get(i).toLowerCase().equals(roleName.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
