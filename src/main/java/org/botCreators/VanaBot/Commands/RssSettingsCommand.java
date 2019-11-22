@@ -50,6 +50,7 @@ public class RssSettingsCommand implements Command{
 		
 		} else {
 			event.getChannel().sendMessage("Current RSS channel is " + RssReader.getRssChannel()).queue();
+			RssReader.forceRunNewsAndTopics();
 		}
 		
 	}
