@@ -25,6 +25,10 @@ public class IamCommand implements Command {
 		unassignables.add("bots");
 		unassignables.add("NPC");
 		unassignables.add("collaborators");
+		unassignables.add("Now Streaming");
+		unassignables.add("Guests");
+		unassignables.add("Nitro Booster");
+		
 		
 		assignableRolesNames = new HashMap<>();
 		assignableRolesNames.put("sandoria", "San d'Oria");
@@ -50,7 +54,6 @@ public class IamCommand implements Command {
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
 		em = new EmbedHelper();
 		argMap = new HashMap<>(Helper.parseArgs(args));
-		
 		if(!argMap.get(command).isEmpty()) {
 			String role = argMap.get(command).replace(" ", "").replaceAll("'", "").toLowerCase();
 			
@@ -71,27 +74,38 @@ public class IamCommand implements Command {
 							
 						}
 					}
-					if (doesUserHaveWorldRole(role)) { 
-						
-					} else
-					if(assignableRolesNames.containsKey(role) && (!hasRole || uRoles.size() == 0)){
-						Role r = event.getGuild().getRolesByName(assignableRolesNames.get(role), true).get(0);
+					
+					boolean isWorldRole = isThisAWorldRole(role);
+					
+					if (isWorldRole && !doesUserHaveWorldRole(event)){
+						Role r = event.getGuild().getRolesByName(role, true).get(0);
 						event.getGuild().addRoleToMember(event.getMember(), r).queue();
-						
-						String emote = "<:" + role + ":" + event.getGuild().getEmotesByName(role, true).get(0).getId() + ">";
-						
-						event.getChannel().addReactionById(event.getMessage().getId(), 
-									event.getGuild().getEmotesByName(role, true).get(0)).queue();
-						
-						StringBuilder sb = new StringBuilder();
-						sb.append(event.getMember().getEffectiveName()).append(" now proudly represents **").append(assignableRolesNames.get(role))
-							.append("**! ").append(emote);
-						
-						event.getChannel().sendMessage(em.BuildNationEmbed(event, sb.toString(), r)).queue();
-					} else if (hasRole){
-						event.getChannel().sendMessage("You have the role already.").queue();
-					} else {
-						event.getChannel().sendMessage("That's not a role. Use `!roles` to see what is available.").queue();
+						event.getChannel().sendMessage("> Welcome to **" + getWorldRole(role) + "**, " + event.getMember().getEffectiveName() + "!").queue();
+					} else if (isWorldRole && doesUserHaveWorldRole(event)){
+						event.getChannel().sendMessage("You already have a server role. Use `!iamnot <server>` to remove yourself.").queue();
+					}
+					
+					if(!isWorldRole) {
+						boolean isAssignableRole = assignableRolesNames.containsKey(role);
+						if(isAssignableRole && (!hasRole || uRoles.size() == 0) && !isWorldRole){
+							Role r = event.getGuild().getRolesByName(assignableRolesNames.get(role), true).get(0);
+							event.getGuild().addRoleToMember(event.getMember(), r).queue();
+							
+							String emote = "<:" + role + ":" + event.getGuild().getEmotesByName(role, true).get(0).getId() + ">";
+							
+							event.getChannel().addReactionById(event.getMessage().getId(), 
+										event.getGuild().getEmotesByName(role, true).get(0)).queue();
+							
+							StringBuilder sb = new StringBuilder();
+							sb.append(event.getMember().getEffectiveName()).append(" now proudly represents **").append(assignableRolesNames.get(role))
+								.append("**! ").append(emote);
+							
+							event.getChannel().sendMessage(em.BuildNationEmbed(event, sb.toString(), r)).queue();
+						} else if (hasRole){
+							event.getChannel().sendMessage("You have the role already.").queue();
+						} else if (!isWorldRole){
+							event.getChannel().sendMessage("That's not a role. Use `!roles` to see what is available.").queue();
+						}
 					}
 					
 				} else {
@@ -101,11 +115,33 @@ public class IamCommand implements Command {
 				event.getChannel().sendMessage("That's not an assignable role. Use `!roles` to see what is available.").queue();
 			}
 		} else {
-			event.getChannel().sendMessage("You need to supply a nation name.").queue();
+			event.getChannel().sendMessage("You need to supply a nation name or a server name.").queue();
 		}
 	}
 	
-	private boolean doesUserHaveWorldRole(String roleName) {
+	private boolean doesUserHaveWorldRole(MessageReceivedEvent event) {
+		List<Role> uRoles = event.getMember().getRoles();
+		for(int i = 0; i < uRoles.size(); i++) {
+				String uRoleName = uRoles.get(i).getName().toLowerCase();
+			for(int j = 0; j < worldRoleNames.size(); j++){
+				if (uRoleName.equals(worldRoleNames.get(j).toLowerCase())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private String getWorldRole(String roleName) {
+		for(int i = 0; i < worldRoleNames.size(); i++) {
+			if (worldRoleNames.get(i).toLowerCase().equals(roleName.toLowerCase())) {
+				return worldRoleNames.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private boolean isThisAWorldRole(String roleName) {
 		for(int i = 0; i < worldRoleNames.size(); i++) {
 			if (worldRoleNames.get(i).toLowerCase().equals(roleName.toLowerCase())) {
 				return true;
@@ -113,5 +149,4 @@ public class IamCommand implements Command {
 		}
 		return false;
 	}
-
 }

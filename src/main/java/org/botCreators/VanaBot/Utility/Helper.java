@@ -21,6 +21,15 @@ public class Helper {
 		emoteMap.put("ahturhgan", "Aht Urhgan");
 		emoteMap.put("tavnazia", "Tavnazia");
 		emoteMap.put("adoulin", "Adoulin");
+		
+		emoteMap.put("asura","Asura"); 					emoteMap.put("bahamut","Bahamut");
+		emoteMap.put("bismarck","Bismarck"); 			emoteMap.put("carbuncle","Carbuncle");
+		emoteMap.put("cerberus","Cerberus"); 			emoteMap.put("fenrir","Fenrir");
+		emoteMap.put("lakshmi","Lakshmi"); 				emoteMap.put("leviathan","Leviathan");
+		emoteMap.put("odin","Odin"); 					emoteMap.put("phoenix","Phoenix");
+		emoteMap.put("quetzalcoatl","Quetzalcoatl"); 	emoteMap.put("ragnarok","Ragnarok");
+		emoteMap.put("shiva","Shiva");					emoteMap.put("siren","Siren");
+		emoteMap.put("sylph","Sylph"); 					emoteMap.put("valefor","Valefor");
 	}
 	
 	public static HashMap<String, String> parseArgs(String[] args){

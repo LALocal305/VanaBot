@@ -57,6 +57,8 @@ public class RolesCommand implements Command {
 			
 		}
 		
+		sb.append("\nYou may also assign any server name as a role.");
+		
 		event.getChannel().sendMessage(em.BuildSimpleEmbed(event, "Assignable Roles", sb.toString(), Color.BLUE)).queue();
 		
 		
