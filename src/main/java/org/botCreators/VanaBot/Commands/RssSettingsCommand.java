@@ -17,8 +17,11 @@ public class RssSettingsCommand implements Command{
 	
 	@Override
 	public void onCommand(MessageReceivedEvent event, String[] args, String command, EventWaiter waiter) {
-
 		argMap = new HashMap<>(Helper.parseArgs(args));
+		
+		if(null == RssReader.getRssChannelId()) { 
+			RssReader.readAndPrintRss(event);
+		}
 		
 		if(!argMap.get(command).isEmpty()) {
 			List<TextChannel> channels = event.getGuild().getTextChannels(); 
@@ -50,7 +53,7 @@ public class RssSettingsCommand implements Command{
 		
 		} else {
 			event.getChannel().sendMessage("Current RSS channel is " + RssReader.getRssChannel()).queue();
-			RssReader.forceRunNewsAndTopics();
+			RssReader.forceRunNewsAndTopics(event);
 		}
 		
 	}

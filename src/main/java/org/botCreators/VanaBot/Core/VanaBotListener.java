@@ -28,7 +28,6 @@ public class VanaBotListener extends ListenerAdapter {
 	
 	public VanaBotListener(EventWaiter waiter){
 		this.waiter = waiter;
-		rss.readAndPrintRss();
 		streamersList = new HashMap<>();
 	}
 	

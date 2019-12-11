@@ -19,30 +19,33 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 
 public class RssReader {
 
 	private static EmbedHelper em = new EmbedHelper();
-	private static MessageChannel rssChannel; 
+	private static String channelName;
+	private static String channelId;
 	
 	public RssReader(){
-		rssChannel = null;
+		channelName = null;
+		channelId = null;
 	}
 	
-	public void readAndPrintRss(){
+	public static void readAndPrintRss(MessageReceivedEvent event){
 		ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
 		ses.scheduleAtFixedRate(new Runnable() {
 		    @Override
 		    public void run() {
 		    	System.out.println("Hourly run of News & Topics");
-		    	printNews();
-		    	printTopics();
+		    	printNews(event);
+		    	printTopics(event);
 		    }
 		}, 30, 3600, TimeUnit.SECONDS);
 	}
 	
-	private static void printNews(){
+	private static void printNews(MessageReceivedEvent event){
 	     try {
 	    	 String newsFile = "rss/pastNews.rss";
 	    	 List<String> datesFromRss = null;
@@ -84,9 +87,9 @@ public class RssReader {
 	        	 } 
 	         }
 	         
-	         if(null != rssChannel && rss_entries.size() > 0){
+	         if(null != channelName && rss_entries.size() > 0){
 	        	 for(int j=0;j<rss_entries.size();j++){
-	        		 rssChannel.sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
+	        		 event.getJDA().getTextChannelById(channelId).sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
 	        	 }
 	         }
 	         System.out.println("RSS News Entries printing: " + rss_entries.size());
@@ -97,7 +100,7 @@ public class RssReader {
 	     }
 	}
 	
-	private static void printTopics(){
+	private static void printTopics(MessageReceivedEvent event){
 	     try {
 	    	 String newsFile = "rss/pastTopics.rss";
 	    	 List<String> datesFromRss = null;
@@ -139,9 +142,9 @@ public class RssReader {
 	        	 } 
 	         }
 	         
-	         if(null != rssChannel && rss_entries.size() > 0){
+	         if(null != channelName && rss_entries.size() > 0){
 	        	 for(int j=0;j<rss_entries.size();j++){
-	        		 rssChannel.sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
+	        		 event.getJDA().getTextChannelById(channelId).sendMessage(em.BuildRssEmbed(rss_entries.get(j))).queue();
 	        	 }
 	         }
 	         System.out.println("RSS Topics Entries printing: " + rss_entries.size());
@@ -153,19 +156,24 @@ public class RssReader {
 	}
 	 
 	public static void setRssChannel(MessageChannel channel) {
-		rssChannel = channel;
+		channelName = channel.getName();
+		channelId = channel.getId();
 	}
 	
 	public static String getRssChannel() {
-		if (null == rssChannel)
+		if (null == channelName)
 			return "not set.";
 		else
-			return rssChannel.getName(); 
+			return channelName; 
 	}
 	
-	public static void forceRunNewsAndTopics() {
+	public static String getRssChannelId() {
+		return channelId;
+	}
+	
+	public static void forceRunNewsAndTopics(MessageReceivedEvent event) {
 		System.out.println("Forcing update for RSS feed.");
-		printNews();
-		printTopics();
+		printNews(event);
+		printTopics(event);
 	}
 }
