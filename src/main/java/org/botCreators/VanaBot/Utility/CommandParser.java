@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class CommandParser {
 
-	private Helper helper;
+	//private Helper helper;
 	private IamCommand iam;
 	private ClockCommand clock;
 	private RandomCommand ran;
@@ -45,7 +45,7 @@ public class CommandParser {
 	
 	private String[] parsed;
 	public CommandParser() {
-		helper = new Helper();
+		//helper = new Helper();
 		iam = new IamCommand();
 		clock = new ClockCommand();
 		ran = new RandomCommand();

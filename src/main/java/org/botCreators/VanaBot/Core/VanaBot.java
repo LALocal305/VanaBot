@@ -9,7 +9,6 @@ import javax.security.auth.login.LoginException;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -34,8 +33,7 @@ public class VanaBot {
     	EventWaiter waiter = new EventWaiter();
         try
         {
-            JDA jda = new JDABuilder(AccountType.BOT)
-                    .setToken(token) 
+            JDA jda = JDABuilder.createDefault(token)
                     .addEventListeners(waiter)
                     .addEventListeners(new VanaBotListener(waiter))
                     .build().awaitReady();  
