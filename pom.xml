@@ -35,16 +35,16 @@
     <dependency>
     	<groupId>com.jagrosh</groupId>
     	<artifactId>jda-utilities</artifactId>
-    	<version>2.1</version>
+    	<version>3.0.5</version>
     	<scope>compile</scope>
     	<type>pom</type>
   	</dependency>
     <dependency>
       <groupId>net.dv8tion</groupId>
-      <artifactId>JDA</artifactId>
-      <version>3.5.1_350</version>
-      <type>jar</type>
-      <scope>compile</scope>
+	  <artifactId>JDA</artifactId>
+	  <version>4.2.0_228</version>
+	  <type>jar</type>
+	  <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>

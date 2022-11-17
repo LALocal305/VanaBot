@@ -86,8 +86,8 @@ public class CommandParser {
 		}
 		
 		if(event.isFromType(ChannelType.TEXT) && 
-				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("testing"))){
-
+				(event.getChannel().getName().equals("bot-spam") || event.getChannel().getName().equals("bot-internal"))){
+			
 			if(command.equals("iam")){
 				iam.onCommand(event, parsed, command, waiter);
 			}

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.botCreators.VanaBot.Utility.CommandParser;
+import org.botCreators.VanaBot.Utility.Helper;
 import org.botCreators.VanaBot.Utility.RssReader;
 import org.botCreators.VanaBot.Utility.StreamingHelper;
 
@@ -29,6 +30,7 @@ public class VanaBotListener extends ListenerAdapter {
 	public VanaBotListener(EventWaiter waiter){
 		this.waiter = waiter;
 		streamersList = new HashMap<>();
+		Helper.init();
 	}
 	
     @Override

@@ -12,6 +12,9 @@ public class Helper {
 	private static HashMap<String, String> emoteMap;
 	
 	public Helper(){
+	}
+	
+	public static void init() {
 		emoteMap = new HashMap<>();
 		emoteMap.put("sandoria", "San d'Oria");
 		emoteMap.put("windurst", "Windurst");
